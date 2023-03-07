@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="nl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Matching</title>
+  </head>
+  <body>
+    <h1>Welkom bij de Matching App</h1>
+    <div id="cat-container">
+      <h2>Naam: <%= katten[0].naam %></h2>
+      <p>Leeftijd: <%= katten[0].leeftijd %></p>
+    </div>
+    <button id="volgende-knop">Volgende kat</button>
+    
+	<script>
+      const volgendeKnop = document.getElementById("volgende-knop");
+      const catContainer = document.getElementById("cat-container");
+      let huidigeKatIndex = 0;
+
+      volgendeKnop.addEventListener("click", () => {
+        huidigeKatIndex++;
+		console.log('uitgevoerd');
+        if (huidigeKatIndex >= katten.length) {
+          huidigeKatIndex = 0;
+        }
+        const huidigeKat = katten[huidigeKatIndex];
+        catContainer.innerHTML = `
+          <h2>Naam: ${huidigeKat.naam}</h2>
+          <p>Leeftijd: ${huidigeKat.leeftijd}</p>
+        `;
+      });
+    </script>
+  </body>
+</html>
