@@ -8,29 +8,17 @@
   </head>
   <body>
     <h1>Welkom bij de Matching App</h1>
-    <div id="cat-container">
+    <div id="kat-container">
       <h2>Naam: <%= katten[0].naam %></h2>
       <p>Leeftijd: <%= katten[0].leeftijd %></p>
+      <p>Status: <%= katten[0].status %></p>
     </div>
-    <button id="volgende-knop">Volgende kat</button>
-    
-	<script>
-      const volgendeKnop = document.getElementById("volgende-knop");
-      const catContainer = document.getElementById("cat-container");
-      let huidigeKatIndex = 0;
+    <form action="/liked" method="post">
+      <button type="submit" name="katId" value="<%= katten[katNummer].id %>" id="like-button">liked</button>
+      <input type="hidden" name="katNummer" value="<%= katNummer %>">
+    </form>
 
-      volgendeKnop.addEventListener("click", () => {
-        huidigeKatIndex++;
-		console.log('uitgevoerd');
-        if (huidigeKatIndex >= katten.length) {
-          huidigeKatIndex = 0;
-        }
-        const huidigeKat = katten[huidigeKatIndex];
-        catContainer.innerHTML = `
-          <h2>Naam: ${huidigeKat.naam}</h2>
-          <p>Leeftijd: ${huidigeKat.leeftijd}</p>
-        `;
-      });
-    </script>
-  </body>
-</html>
+    <form action="/vorige" method="post">
+      <button type="submit" name="katId" value="<%= katten[katNummer].id %>" id="vorige-button">vorige</button>
+      <input type="hidden" name="katNummer" value="<%= katNummer %>">
+    </form>
