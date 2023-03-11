@@ -102,7 +102,6 @@ express()
 	.set("view engine", "ejs")
 	.set("views", "view");
 
-let katNummer = 0;
 let katten = [
 	{
 		id: 0,
@@ -137,9 +136,23 @@ let katten = [
 ];
 
 // Route voor de hoofdpagina
+// app.get("/", (req, res) => {
+// 	const eersteKat = katten.find((kat) => kat.status === 'new');
+// 	res.render("matching.ejs", { eersteKat });
+// 	console.log("get: ", eersteKat)
+// });
+
+// app.get("/nocats", (req, res) => {
+// 	res.render("nocats.ejs", { katten });
+// });
+
 app.get("/", (req, res) => {
-	let newKatten = katten.filter((kat) => kat.status === "new");
-	res.render("matching.ejs", { katten: newKatten, katNummer });
+	const eersteKat = katten.find((kat) => kat.status === 'new');
+	if (eersteKat) {
+		res.render("matching.ejs", {eersteKat});
+	} else {
+		res.render("nocats.ejs", {katten});
+	}
 });
 
 // app.post("/liked", (req, res) => {
@@ -151,23 +164,33 @@ app.get("/", (req, res) => {
 // 		if (kat.status === "new") {
 // 			kat.status = "liked";
 // 		}
-// 	});
+// 	
 // 	katNummer += 1; // ga naar de volgende kat
 // 	res.redirect("/");
 // });
 
+// app.post("/liked", (req, res) => {
+// let newKatten = katten.filter((kat) => kat.status === "new");
+// newKatten[katNummer].status = "liked"
+// console.log(katNummer);
+// console.log(katten);
+//  res.redirect("/");
+// });
+
 app.post("/liked", (req, res) => {
-katten[katNummer].status = "liked"
-katNummer += 1; 
-console.log(katNummer);
- res.redirect("/");
-});
+	const eersteKat = katten.find((kat) => kat.status === 'new');
+	eersteKat.status = 'liked'; 
+	res.redirect('/');
+	console.log(katten);
+  })
 
 
-app.post("/vorige", (req, res) => {
-	katNummer -= 1; // ga naar de volgende kat
-	res.redirect("/");
-	console.log("vorige")
+  app.post("/disliked", (req, res) => {
+	const eersteKat = katten.find((kat) => kat.status === 'new');
+	eersteKat.status = 'disliked'; 
+	 res.redirect('/');
+	console.log(katten);
+	console.log("post: ", eersteKat)
 });
 
 app.listen(port, () => {
