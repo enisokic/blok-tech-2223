@@ -102,44 +102,53 @@ express()
 	.set("view engine", "ejs")
 	.set("views", "view");
 
-const user = {
-	name: 'enis',
-	age: 22,
-	likedBy: [0, 4, 5]
-}
 
-const katten = [
-	{
-		id: 0,
-		naam: "Tommy",
-		leeftijd: 5,
-		status: "new",
-	},
-	{
-		id: 1,
-		naam: "Moomoo",
-		leeftijd: 2,
-		status: "liked",
-	},
-	{
-		id: 2,
-		naam: "Medo - gelukt",
-		leeftijd: 5,
-		status: "new",
-	},
-	{
-		id: 3,
-		naam: "Muffin",
-		leeftijd: 7,
-		status: "new",
-	},
-	{
-		id: 4,
-		naam: "Muffin is geskipt",
-		leeftijd: 7,
-		status: "new",
-	}
-];
+// const user = {
+// 	name: 'enis',
+// 	age: 22,
+// 	likedBy: [0, 4, 5]
+// }
+
+// const katten = [
+// 	{
+// 		id: 0,
+// 		naam: "Tommy",
+// 		leeftijd: 5,
+// 		status: "new",
+// 	},
+// 	{
+// 		id: 1,
+// 		naam: "Moomoo",
+// 		leeftijd: 2,
+// 		status: "liked",
+// 	},
+// 	{
+// 		id: 2,
+// 		naam: "Medo - gelukt",
+// 		leeftijd: 5,
+// 		status: "new",
+// 	},
+// 	{
+// 		id: 3,
+// 		naam: "Muffin",
+// 		leeftijd: 7,
+// 		status: "new",
+// 	},
+// 	{
+// 		id: 4,
+// 		naam: "Muffin is geskipt",
+// 		leeftijd: 7,
+// 		status: "new",
+// 	}
+// ];
+
+// import katten from 'data/katten.json';
+// import user from 'data/user.json';
+
+const katten = require('./data/katten.json');
+const user = require('./data/user.json')
+
+console.log(katten);
 
 // Route voor de hoofdpagina
 // app.get("/", (req, res) => {
