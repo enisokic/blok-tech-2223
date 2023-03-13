@@ -102,7 +102,13 @@ express()
 	.set("view engine", "ejs")
 	.set("views", "view");
 
-let katten = [
+const user = {
+	name: 'enis',
+	age: 22,
+	likedBy: [0, 4, 5]
+}
+
+const katten = [
 	{
 		id: 0,
 		naam: "Tommy",
@@ -148,12 +154,17 @@ let katten = [
 
 app.get("/", (req, res) => {
 	const eersteKat = katten.find((kat) => kat.status === 'new');
-	if (eersteKat) {
+	// if (eersteKat) {
 		res.render("matching.ejs", {eersteKat});
-	} else {
-		res.render("nocats.ejs", {katten});
-	}
+	// } else {
+	// 	res.render("nocats.ejs", {katten});
+	// }
 });
+
+// Zo werkt een static pagina (even voor mezelf)
+app.get('/pagina-test', (req, res) => {
+	res.sendFile(__dirname + '/pagina-test.html');
+  });
 
 // app.post("/liked", (req, res) => {
 //  	katNummer += 1; //<<< volgende kat ongeacht status
@@ -179,9 +190,18 @@ app.get("/", (req, res) => {
 
 app.post("/liked", (req, res) => {
 	const eersteKat = katten.find((kat) => kat.status === 'new');
+
+	if (user.likedBy.includes(eersteKat.id)) {
+		// Er is een match!
+		console.log('Match gevonden!');
+		eersteKat.status = 'liked'; 
+		res.redirect('/');
+		console.log(katten);
+	  } else {
 	eersteKat.status = 'liked'; 
 	res.redirect('/');
 	console.log(katten);
+	  }
   })
 
 
@@ -190,7 +210,6 @@ app.post("/liked", (req, res) => {
 	eersteKat.status = 'disliked'; 
 	 res.redirect('/');
 	console.log(katten);
-	console.log("post: ", eersteKat)
 });
 
 app.listen(port, () => {

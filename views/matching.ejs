@@ -8,31 +8,37 @@
 	</head>
 	<body>
 		<h1>Welkom bij de Matching App</h1>
-		<div id="kat-container">
+
+		<% if(eersteKat){ %>
 			<h2>Naam: <%= eersteKat.naam %></h2>
 			<p>Leeftijd: <%= eersteKat.leeftijd %></p>
 			<p>Status: <%= eersteKat.status %></p>
-		</div>
-		<form action="/liked" method="post">
-			<button
-				type="submit"
-				name="katId"
-				value="<%= eersteKat.id %>"
-				id="like-button"
-			>
-				liked
-			</button>
-		</form>
+			<form action="/liked" method="post">
+				<button
+					type="submit"
+					name="katId"
+					id="like-button"
+				>
+					liked
+				</button>
+			</form>
+	
+			<form action="/disliked" method="post">
+				<button
+					type="submit"
+					name="katId"
+					id="dislike-button"
+				>
+					dislike
+				</button>
+			</form>
 
-		<form action="/disliked" method="post">
-			<button
-				type="submit"
-				name="katId"
-				value="<%= eersteKat.id %>"
-				id="dislike-button"
-			>
-				dislike
-			</button>
-		</form>
+			<!-- <form action="like-or-dislike" method="post" >
+				<label>Dislike<input type="submit" value="dislike"></label>
+				<label>Like<input type="submit" value="like"></label>	
+			</form> -->
+		<% } else { %>
+		<p>Er zijn geen katten meer om te liken</p>
+		<% } %>
 	</body>
 </html>
