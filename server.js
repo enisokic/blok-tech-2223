@@ -97,7 +97,7 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
-express()
+app
 	.use(express.static("static"))
 	.set("view engine", "ejs")
 	.set("views", "view");
@@ -146,9 +146,7 @@ express()
 // import user from 'data/user.json';
 
 const katten = require('./data/katten.json');
-const user = require('./data/user.json')
-
-console.log(katten);
+const user = require('./data/user.json');
 
 // Route voor de hoofdpagina
 // app.get("/", (req, res) => {
@@ -163,16 +161,12 @@ console.log(katten);
 
 app.get("/", (req, res) => {
 	const eersteKat = katten.find((kat) => kat.status === 'new');
-	// if (eersteKat) {
 		res.render("matching.ejs", {eersteKat});
-	// } else {
-	// 	res.render("nocats.ejs", {katten});
-	// }
 });
 
 // Zo werkt een static pagina (even voor mezelf)
-app.get('/pagina-test', (req, res) => {
-	res.sendFile(__dirname + '/pagina-test.html');
+app.get('/match', (req, res) => {
+	res.sendFile(__dirname + '/html/pagina-test.html');
   });
 
 // app.post("/liked", (req, res) => {
@@ -204,7 +198,7 @@ app.post("/liked", (req, res) => {
 		// Er is een match!
 		console.log('Match gevonden!');
 		eersteKat.status = 'liked'; 
-		res.redirect('/');
+		res.redirect('/match');
 		console.log(katten);
 	  } else {
 	eersteKat.status = 'liked'; 
