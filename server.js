@@ -14,6 +14,8 @@ app.get("/", (req, res) => { // Home pagina routing
 	const eersteKat = katten.find((kat) => kat.status === "new"); // Zoekt de eerst volgende kat met status "new"
 
 	res.render("verkennen.ejs", { eersteKat }); // Toont de pagina verkennen met de juiste data
+
+	// console.log(katten); // Alle katten data om te controleren of de status is veranderd naar liked of disliked
 });
 
 app.get("/match", (req, res) => {

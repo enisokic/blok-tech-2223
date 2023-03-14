@@ -1,7 +1,5 @@
 node_modules/
 oude-code.js
-package-lock.json
-package.json
 server2.js
 views/oude-code.ejs
 views/match2.ejs
