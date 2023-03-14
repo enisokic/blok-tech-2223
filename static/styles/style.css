@@ -247,6 +247,37 @@ main {
 	margin-top: 1em;
 }
 
+
+/* ============ */
+/* Error pagina */
+/* ============ */
+#error header {
+	justify-content: center;
+}
+
+#error header h2 {
+	font-family: "Pacifico", cursive;
+	font-size: 2em;
+	text-align: center;
+	color: var(--primaire-kleur);
+	margin: 0;
+}
+
+#error main h2 {
+	color: var(--extra-tekst);
+	text-align: center;
+}
+
+#error main h2:last-of-type {
+	font-weight: 400;
+}
+
+#error img {
+	width: 50%;
+	height: auto;
+	margin: 1em 0;
+}
+
 /* ========= */
 /* Navigatie */
 /* ========= */

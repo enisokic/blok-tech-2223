@@ -1,18 +1,19 @@
 {
   "name": "blok-tech-2223",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "CatMatch application",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/enisokic/blok-tech-2223.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Enis Okic",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/enisokic/blok-tech-2223/issues"
   },

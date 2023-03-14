@@ -7,4 +7,5 @@ views/matching.ejs
 static/styles/style2.css
 html/
 .DS_Store
+.env
 
