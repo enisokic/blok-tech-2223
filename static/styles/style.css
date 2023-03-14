@@ -1,47 +1,98 @@
-/* Lettertpye('s) */
+/* =============== */
+/* Lettertype('s) */
+/* ============== */
 @import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
-body {
-	margin: 0;
-	padding: 1em;
+/* ======= */
+/* Kleuren */
+/* ======= */
+:root {
+	--primaire-kleur: #ff0043;
+	--secondaire-kleur: #ff3268;
+	--primaire-knop: #00d193;
+	--secondaire-knop: #ffffff;
+	--standaard-tekst: #ffffff;
+	--extra-tekst: #000000;
 }
 
-body h1 {
+/* ==== */
+/* Body */
+/* ==== */
+body {
+	margin: 1em; /* Ruimte tussen rand en content */
+}
+
+/* ================= */
+/* Body match pagina */
+/* ================= */
+#match {
+	background-color: var(--secondaire-kleur);
+}
+
+/* ===== */
+/* Tekst */
+/* ===== */
+h1 {
 	font-family: "Pacifico", cursive;
 	font-size: 2em;
 	text-align: center;
-	color: #ff0043;
+	color: var(--primaire-kleur);
 	margin: 0;
 }
 
-body h2 {
+h2 {
 	font-family: "Poppins", sans-serif;
 	font-size: 1.75em;
 	font-weight: 600;
-    color: white;
+	color: var(--standaard-tekst);
 	margin: 0;
 }
 
-body p {
-    font-family: "Poppins", sans-serif;
+p,
+li,
+a {
+	font-family: "Poppins", sans-serif;
 	font-size: 1em;
 	font-weight: 400;
+	color: var(--standaard-tekst);
+	margin: 0;
 }
 
-/* Primaire tekst knop */
-.knop {
-    font-family: "Poppins", sans-serif;
-	font-size: 1em;
+/* ======= */
+/* Knoppen */
+/* ======= */
+.primaire-knop {
+	font-family: "Poppins", sans-serif;
 	font-weight: 400;
-    border-radius: 10em;
-    text-align: center;
+	font-size: 1em;
 	text-decoration: none;
-    padding: .75em 0;
-    width: 100%;
+	text-align: center;
+	color: var(--standaard-tekst);
+	background-color: var(--primaire-knop);
+	padding: 0.75em 1.5em;
+	border: solid 0.1em var(--primaire-knop);
+	border-radius: 10em;
+	transition: all 0.2 ease;
 }
-/* =================== */
-/* Match zoeken pagina */
-/* =================== */
+
+.secondaire-knop {
+	font-family: "Poppins", sans-serif;
+	font-weight: 400;
+	font-size: 1em;
+	text-decoration: none;
+	text-align: center;
+	color: var(--primaire-kleur);
+	background-color: var(--secondaire-knop);
+	padding: 0.75em 1.5em;
+	border: solid 0.1em var(--secondaire-knop);
+	border-radius: 10em;
+	transition: all 0.2 ease;
+}
+
+/* ================== */
+/* Pagina - Verkennen */
+/* ================== */
+
 /* Header */
 header {
 	display: flex;
@@ -50,176 +101,167 @@ header {
 }
 
 header svg {
-	fill: black;
+	fill: var(--extra-tekst);
 	width: 1.5em;
 	height: auto;
 }
 
-/* kat profiel (hiermee blijft de kat informatie binnen de div positioneren icm position: absolute;)*/
-#kat-profiel {
-    position: relative;
-    border-radius: 1em;
-    overflow: hidden;
+/* main */
+main {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+    position: fixed; /* Zodat de main niet beweegt tijdens het refreshen */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: 1em;
 }
 
-/* Profielfoto */
+/* Profiel foto + alle kat info */
+#profiel {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	position: relative; /* Om de kat info te positioneren binnen de profiel foto */
+	border-radius: 1em;
+	overflow: hidden;
+}
+
 #profiel-foto {
 	width: 100%;
 	height: auto;
 }
 
-/* Kat informatie op profiel foto */
-#kat-info {
-    position: absolute;
-    left: 0em;
-    bottom: 0em;
-    padding: 1em;
-    background-color: rgba(0, 0, 0, .5);
-    width: 100%;
+@media (max-width: 375px) {
+	#profiel {
+		width: 75%;
+		height: auto;
+	}
 }
 
-/* Kat informatie - Naam, Leeftijd & Geslacht */
+/* Alle kat info */
+#kat-info {
+	background-color: rgba(0, 0, 0, 0.5);
+	position: absolute; /* Om de kat info te positioneren binnen de profiel foto */
+	left: 0;
+	bottom: 0;
+	right: 0;
+	padding: 1em;
+}
+
+/* Naam, Leeftijd & Geslacht */
 #naam-leeftijd-geslacht {
 	display: flex;
 	align-items: center;
 	gap: 0.5em;
 }
 
+/* Geslacht icon */
 #naam-leeftijd-geslacht img {
-	width: auto;
-	height: 1.5em;
+	width: 1.5em;
+	height: auto;
 }
 
-/* Rest kat informatie */
+/* Ras & Locatie */
 #kat-info ul {
 	list-style: none;
 	padding: 0;
-    margin: 0;
+	margin: 0;
 }
 
-#kat-info ul li {
-	font-family: "Poppins", sans-serif;
-	font-size: 1em;
-	font-weight: 400;
-    color: white;
-    display: flex;
-    align-items: center;
-    gap: .5em;
-}
-
-#kat-info ul li svg {
-    fill: white;
-    width: 1.25em;
-    height: auto;
-}
-
-/* Like & Dislike buttons samen */
+/* Like & Dislike knop */
 #like-dislike {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1em;
-    margin-top: 1em;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 1em;
+	margin-top: 1em;
 }
 
 #like-dislike button {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: none;
-    border-radius: 50%;
-    padding: 2em;
+	display: flex;
+	padding: 2em;
+	border: none;
+	border-radius: 50%;
 }
 
 #like-dislike svg {
-    fill: white;
-    width: 2em;
-    height: auto;
+	fill: var(--standaard-tekst);
+	width: 2em;
+	height: auto;
 }
 
-/* Like & Disliked buttons apart */
-#like-button {
-    background-color: #00d193;
+#like-knop {
+	background-color: var(--primaire-knop);
 }
 
-#dislike-button {
-    background-color: #ff0043;
+#dislike-knop {
+	background-color: var(--primaire-kleur);
 }
 
-/* Geen katten meer :( */
+/* Geen katten meer */
 #geen-katten-meer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 1em;
-    margin-top: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: 1em;
 }
 
 #geen-katten-meer img {
-    width: 50%;
-    height: auto;
+	width: 50%;
+	height: auto;
 }
 
 #geen-katten-meer p {
-    color: black;
-}
-
-#geen-katten-meer .knop {
-    color: white;
-    background-color: #00d193;
+	color: black;
 }
 
 /* ============ */
 /* Match pagina */
 /* ============ */
-#match {
-    background-color: #ff3268;
-}
-
 #match header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 1em;
+	justify-content: center;
 }
 
-#match header h2 {
-    text-align: center;
+#match-foto {
+	width: 100%;
+	height: auto;
+	border-radius: 1em;
 }
 
-#match main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    gap: 1.5em;
+@media (max-width: 375px) {
+	#match-foto {
+		width: 75%;
+		height: auto;
+	}
 }
 
-#match img {
-    width: 100%;
-    height: auto;
-    border-radius: 1em;
-}
-
-#match .knop:first-of-type {
-    color: white;
-    background-color: #00d193;
-}
-
-#match .knop:nth-of-type(2) {
-    color: #ff0043;
-    background-color: white;
+#match .primaire-knop,
+#match .secondaire-knop {
+	align-self: normal;
+	margin-top: 1em;
 }
 
 /* ========= */
 /* Navigatie */
 /* ========= */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 1em;
+}
+
 nav {
-    background-color: #333333;
-    padding: .5em 0;
-    border-radius: 1em;
-    margin-top: 3em;
+    background-color: var(--extra-tekst);
+    padding: 1em;
+    border-radius: .5em;;
 }
 
 nav ul {
@@ -232,7 +274,6 @@ nav ul {
 }
 
 nav ul li a svg {
-    fill: white;
     width: 2em;
     height: auto;
 }
