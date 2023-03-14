@@ -100,10 +100,10 @@ const port = 3000;
 app
 	.use(express.static("static"))
 	.set("view engine", "ejs")
-	.set("views", "view");
+	.set("views", "./views")
 
 
-// const user = {
+// const $user = {
 // 	name: 'enis',
 // 	age: 22,
 // 	likedBy: [0, 4, 5]
@@ -164,10 +164,15 @@ app.get("/", (req, res) => {
 		res.render("matching.ejs", {eersteKat});
 });
 
-// Zo werkt een static pagina (even voor mezelf)
 app.get('/match', (req, res) => {
-	res.sendFile(__dirname + '/html/pagina-test.html');
+	res.render("match.ejs", {katten});
   });
+
+
+// Zo werkt een static pagina (even voor mezelf)
+// app.get('/match', (req, res) => {
+// 	res.sendFile(__dirname + '/html/pagina-test.html');
+//   });
 
 // app.post("/liked", (req, res) => {
 //  	katNummer += 1; //<<< volgende kat ongeacht status

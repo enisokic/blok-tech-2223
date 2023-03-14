@@ -1,9 +1,5 @@
 {
 	"name": "enis",
 	"age": 22,
-	"likedBy": [
-	  0,
-	  4,
-	  5
-	]
+	"likedBy": [ 3 ]
   }
