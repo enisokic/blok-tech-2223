@@ -106,7 +106,7 @@
 
 			<div id="like-dislike">
 				<form action="/disliked" method="post">
-					<button type="submit" name="katId" id="dislike-knop">
+					<button type="submit" name="katId" value="<%= eersteKat._id %>" id="dislike-knop">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="16"
@@ -122,7 +122,7 @@
 				</form>
 
 				<form action="/liked" method="post">
-					<button type="submit" name="katId" id="like-knop">
+					<button type="submit" name="id" value="<%= eersteKat._id %>" id="like-knop">
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="16"
