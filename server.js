@@ -148,7 +148,7 @@ app.post("/disliked", async (req, res) => {
 	res.redirect("/");
 });
 
-// Weer pagina
+// Route weer pagina *weergave*
 app.get("/weer", (req, res) => {
 	try {
 		res.render("weer.ejs");
