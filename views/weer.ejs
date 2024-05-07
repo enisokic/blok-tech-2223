@@ -120,16 +120,18 @@
 			</nav>
 		</footer>
 		<script>
-			<!-- Geolocation API aan roepen -->
+			<!-- Geolocation API aanroepen -->
 			function getLocation() {
-				if (navigator.geolocation) {
-					navigator.geolocation.getCurrentPosition(showPosition); // Gegevens verkrijgen
-				} else {
-					console.error("Geolocation is not supported by this browser.");
+				try {
+					if (navigator.geolocation) {
+						navigator.geolocation.getCurrentPosition(showPosition); // Gegevens verkrijgen
+					}
+				} catch (error) {
+					console.error(error.message);
 				}
 			}
-
-			function showPosition(position) { 
+		
+			function showPosition(position) {
 				console.log("Latitude: " + position.coords.latitude +
 					"Longitude: " + position.coords.longitude); // Verkregen gegevens
 			}
