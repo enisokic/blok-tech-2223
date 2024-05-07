@@ -148,6 +148,15 @@ app.post("/disliked", async (req, res) => {
 	res.redirect("/");
 });
 
+// Weer pagina
+app.get("/weer", (req, res) => {
+	try {
+		res.render("weer.ejs");
+	} catch (error) {
+		console.error(error);
+	}
+});
+
 // 404 Error pagina
 app.use((req, res) => {
 	res.status(404);
