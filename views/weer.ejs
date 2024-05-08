@@ -43,9 +43,12 @@
 		</header>
 
 		<main>
-			<!-- Geolocation functie uitvoeren -->
-			<button onclick="getLocation()">Krijg mijn locatie</button>
-
+			<div id="weer-info"></div>
+			<button onclick="gebruikHuidigeLocatie()" class="algemene-primaire-knop">Gebruik mijn huidige locatie</button>
+			<div id="stad">
+				<input type="text" id="stadInvoeren" placeholder="Voer een stad in">
+				<button onclick="stadsWeer()" class="algemene-primaire-knop">Toon</button>
+			</div>
 		</main>
 
 		<footer>
@@ -121,33 +124,70 @@
 			</nav>
 		</footer>
 		<script>
-			<!-- Geolocation API aanroepen -->
-			function getLocation() {
+			// Functie het weer tonen op basis van huidige locatie van de gebruiker
+			async function gebruikHuidigeLocatie() {
 				try {
 					if (navigator.geolocation) {
-						navigator.geolocation.getCurrentPosition(showPosition); // Gegevens verkrijgen
+						// Haal de huidige positie van de gebruiker op
+						navigator.geolocation.getCurrentPosition(async position => {
+							const { latitude, longitude } = position.coords; 
+							// Haal het weer op basis van de locatiegegevens
+							await locatieWeerData({ latitude, longitude });
+						});
 					}
 				} catch (error) {
-					console.error(error.message);
+					console.error(error);
 				}
 			}
-
-			function showPosition(position) {
-				const latitude = position.coords.latitude;
-				const longitude = position.coords.longitude;
-			
-				const apiKey = '579c99b40d011052592a4387491b55bb'; // Vervang dit door je eigen OpenWeatherMap API-sleutel
-				const apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
-			
-				fetch(apiUrl)
-					.then(response => response.json())
-					.then(data => {
-						console.log(data);
-					})
-					.catch(error => {
-						console.error(error.message);
+	
+			// Functie het weer tonen op basis van ingevoerde stad
+			async function stadsWeer() {
+				// Haal de stad op uit het invoerveld
+				const city = document.getElementById("stadInvoeren").value;
+				// controle of de stad is ingevoerd
+				if (city.trim() !== "") {
+					await locatieWeerData({ city });
+				} else {
+					console.error("Voer een stad in.");
+				}
+			}
+	
+			// Functie om het weer op te halen op basis van locatiegegevens
+			async function locatieWeerData(locationData) {
+				try {
+					// Stuur een verzoek naar de server.js om het weer op te halen
+					const response = await fetch("/weer", {
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json"
+						},
+						body: JSON.stringify(locationData)
 					});
-			}			
+	
+					// Controle of verzoek succesvol was
+					if (response.ok) {
+						const weatherData = await response.json();
+						displayWeather(weatherData);
+					} else {
+						console.error("Er is een probleem opgetreden bij het ophalen van het weer.");
+					}
+				} catch (error) {
+					console.error(error);
+				}
+			}
+	
+			// Functie om het weer weer te geven op de pagina
+			function displayWeather(weatherData) {
+				// Het element waar het weergeven moet worden
+				const weatherInfo = document.getElementById("weer-info");
+				// De weergegevens die getoond moeten worden
+				weatherInfo.innerHTML = `
+					<h3>${weatherData.name}</h3>
+					<p>${Math.round(weatherData.main.temp - 273.15)}°C</p>
+					<p>${weatherData.weather[0].description}</p>
+					<!-- <p id="weer-icon">${weatherData.weather[0].icon}</p> -->
+				`;
+			}
 		</script>
 	</body>
 </html>

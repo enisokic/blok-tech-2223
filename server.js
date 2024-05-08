@@ -1,13 +1,17 @@
 const express = require("express");
 const app = express();
 const port = 3000; // luister naar port 3000
+const fetch = require("node-fetch");
 
 app
 	.use(express.static("static"))
-	.set("view enige", "ejs")
+	.set("view engine", "ejs")
 	.set("views", "./views");
 
 require("dotenv").config();
+
+// Middleware voor het parsen van JSON-body's
+app.use(express.json());
 
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
 const uri = process.env.MONGODB_URI;
@@ -148,13 +152,43 @@ app.post("/disliked", async (req, res) => {
 	res.redirect("/");
 });
 
-// Route weer pagina *weergave*
+// Open weathermap api key
+const apiKey = process.env.OPENWEATHERMAP_API_KEY;
+
+// Route voor het ophalen van het weer
+app.post("/weer", async (req, res) => {
+    try {
+        const { latitude, longitude, city } = req.body;
+        let apiUrl;
+
+        // Bepaalt de url van api
+        if (latitude && longitude) {
+            apiUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&lang=nl&appid=${apiKey}`;
+        } else if (city) {
+            apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&lang=nl&appid=${apiKey}`;
+        } else {
+            return res.status(400).json({ error: "Geen locatiegegevens verstrekt" });
+        }
+
+		// Verzoek sturen om weerdata op te halen
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Er is een fout opgetreden bij het ophalen van het weer" });
+    }
+});
+
+// Route voor het weergeven van de weerpagina
 app.get("/weer", (req, res) => {
-	try {
-		res.render("weer.ejs");
-	} catch (error) {
-		console.error(error);
-	}
+    try {
+		// Render weer pagina
+        res.render("weer.ejs");
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Er is een fout opgetreden bij het weergeven van de weerpagina");
+    }
 });
 
 // 404 Error pagina
